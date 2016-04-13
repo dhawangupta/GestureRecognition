@@ -71,7 +71,7 @@ public class BackgroundSubstract {
 		VideoCapture camera = new VideoCapture(0);
 		Size sz = new Size(640, 480);
 		
-		BackgroundSubtractorMOG2 sub = Video.createBackgroundSubtractorMOG2(500,55,false); //TODO : Play with the three parameters to get better results; also search for more parameters for this class
+		BackgroundSubtractorMOG2 sub = Video.createBackgroundSubtractorMOG2(800,55,false); //TODO : Play with the three parameters to get better results; also search for more parameters for this class
 		
 		while (true) {
 			if (camera.read(frame)) {

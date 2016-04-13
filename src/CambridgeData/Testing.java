@@ -1,3 +1,5 @@
+package CambridgeData;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -13,10 +15,10 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.videoio.*;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
 
-public class ReadVideo {
+public class Testing {
 	static{
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
@@ -31,15 +33,27 @@ public class ReadVideo {
 		jframe.setVisible(true);
 		
 		Mat frame = new Mat();
+		Processing ob = new Processing();
+		Mat hand;
+		int num=0;
 		
 		while (true){
 			if (cam.read(frame)){
-				Imgproc.resize(frame, frame, new Size(320,240));
 				
-				ImageIcon image = new ImageIcon(Mat2bufferedImage(frame));
+				ob.setframe(frame);
+				hand = ob.process().clone();
+				
+				ImageIcon image = new ImageIcon(Mat2bufferedImage(hand));
 				vidpanel.setIcon(image);
 				vidpanel.repaint();
+				
+				System.out.println(++num);
 			}
+			else{
+				System.out.println("Done");
+				break;
+			}
+				
 		}
 	}
 	
@@ -49,8 +63,7 @@ public class ReadVideo {
 		byte[] bytes = bytemat.toArray();
 		InputStream in = new ByteArrayInputStream(bytes);
 		BufferedImage img = null;
-		try {
-			img = ImageIO.read(in);
+		try {img = ImageIO.read(in);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

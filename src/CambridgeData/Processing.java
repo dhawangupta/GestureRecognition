@@ -41,9 +41,9 @@ public class Processing {
 		Mat element2 = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3,3));
 		Mat element3 = Imgproc.getStructuringElement(Imgproc.MORPH_ELLIPSE, new Size(3,3));
 		
-		Size sz = new Size(640, 480);
+		Size sz = new Size(320, 240);
 		
-		BackgroundSubtractorMOG2 sub = Video.createBackgroundSubtractorMOG2(500,55,false); //TODO : Play with the three parameters to get better results; also search for more parameters for this class
+		BackgroundSubtractorMOG2 sub = Video.createBackgroundSubtractorMOG2(500,55,false); 
 		
 		Imgproc.resize(frame, frame, sz);
 		outerBox = new Mat(frame.size(), CvType.CV_8UC1);
@@ -63,7 +63,7 @@ public class Processing {
 		Imgproc.GaussianBlur(frame_smooth, frame_smooth, new Size(3,3), 0,0);
 		
 		
-		array = detection_contours(frame_smooth);
+		/*array = detection_contours(frame_smooth);
 		if (array.size() > 0) {
 
 			Iterator<Rect> it2 = array.iterator();
@@ -86,9 +86,9 @@ public class Processing {
 			}
 		}
 		Rect roi = new Rect(tl,br);
-		Mat hand = frame_smooth.submat(roi);
-		Imgproc.resize(hand, hand, new Size(100,120));
-		return hand;
+		Mat hand = frame_smooth.submat(roi);*/
+		Imgproc.resize(frame_smooth, frame_smooth, new Size(320,240));
+		return frame_smooth;
 	}
 	
 	public static ArrayList<Rect> detection_contours(Mat outmat) {
